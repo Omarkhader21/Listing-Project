@@ -29,6 +29,9 @@
         <div v-if="flashSuccess" class="input-success">
             {{ flashSuccess }}
         </div>
+        <div v-if="flashError" class="input-error-message">
+            {{ flashError }}
+        </div>
         <slot>
             Default
         </slot>
@@ -42,6 +45,10 @@ import {ref, computed} from 'vue'
 const page = usePage();
 const flashSuccess = computed(
     () => page.props.value.flash.success,
+)
+
+const flashError = computed(
+    () => page.props.value.flash.error
 )
 
 const user = computed(

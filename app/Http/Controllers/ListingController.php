@@ -27,6 +27,7 @@ class ListingController extends Controller
             'filters' => $filters,
             'listings' => Listing::mostRecent()
                 ->filter($filters)
+                ->withCount(['images'])
                 ->paginate(10)
                 ->withQueryString(),
         ]);
@@ -52,8 +53,10 @@ class ListingController extends Controller
 //        }
 //        $this->authorize('view',$listing);
 
+        $listing->load(['images']);
+
         return inertia('Listing/Show', [
-            'listing' => Listing::find($listing->id),
+            'listing' => $listing,
         ]);
     }
 
