@@ -24,7 +24,7 @@ class RealtorListingController extends Controller
             'deleted' => $request->boolean('deleted'),
             ...$request->only(['by','order'])
         ];
-        return inertia('Realtor/index',['filters' => $filters,'listings' => Auth::user()->listings()->filter($filters)->withCount('images')->paginate(5)->withQueryString()]);
+        return inertia('Realtor/index',['filters' => $filters,'listings' => Auth::user()->listings()->filter($filters)->withCount('images')->withCount('offers')->paginate(5)->withQueryString()]);
     }
 
     /**
@@ -69,9 +69,13 @@ class RealtorListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Listing $listing)
     {
-        //
+        return inertia(
+            'Realtor/Show',
+            ['listing' => $listing->load('offers')],
+
+        );
     }
 
     /**
