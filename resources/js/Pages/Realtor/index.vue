@@ -8,6 +8,9 @@
         <Box v-for="listing in listings.data" :key="listing.id" :class="{'border-dashed': listing.deleted_at}">
             <div class="flex flex-col md:flex-row gap-2 md:items-center justify-between">
                 <div :class="{'opacity-25':listing.deleted_at}">
+                    <div v-if="listing.sold_at != null" class="sold">
+                        sold
+                    </div>
                     <div class="xl:flex items-center gap-2">
                         <Price :price="listing.price"/>
                         <ListingSpace :listing="listing"/>
